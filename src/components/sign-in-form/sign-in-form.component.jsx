@@ -1,5 +1,7 @@
 //REACT
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+
+//import { UserContext } from "../../contexts/user.contexts";
 
 //FireBase
 import {
@@ -24,22 +26,30 @@ const defaultFormFields = {
 
 //Component Start
 const SignIn = () => {
+
+  
+ // const { setCurrentUser } = useContext(UserContext);
+
+
   const logGoogleUser = async () => {
     const response = await signInWithGooglePopup();
-    console.log(response);
-    createUserDocumentFromAuth(response.user);
+   // setCurrentUser(response.user);
+   // createUserDocumentFromAuth(response.user);
   };
+
 
   const logGoogleRedirect = async () => {
     const response = await signInWithGoogleRedirect();
     console.log(response);
     //createUserDocumentFromAuth(response.user)
   };
+
   //
   useEffect(async () => {
     const response = await getRedirectResult(auth);
     console.log(response);
   }, []);
+
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -54,7 +64,6 @@ const SignIn = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const response = await signInExistingUserUsingEmailAndPassword(
         email,
@@ -99,7 +108,7 @@ const SignIn = () => {
         />
         <div className="buttons-container">
           <Button type="submit">SIGN IN</Button>
-          <Button type='button' buttonType="google" onClick={logGoogleUser}>
+          <Button type="button" buttonType="google" onClick={logGoogleUser}>
             GOOGLE SIGN IN
           </Button>
         </div>

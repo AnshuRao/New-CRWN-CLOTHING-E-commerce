@@ -5,11 +5,24 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter } from "react-router-dom";
+//CONTEXT
+import { UserProvider } from "./contexts/user.contexts";
+import { ProductProvider } from "./contexts/products.context";
+/*you need to think which context can access other context ....as now we need products in users context so according we have placed  */
+import { CartProvider } from "./contexts/cart.context";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+
+      <CartProvider>
+        <UserProvider>
+          <ProductProvider>
+            <App />
+          </ProductProvider>
+        </UserProvider>
+      </CartProvider>
+      
     </BrowserRouter>
   </React.StrictMode>,
 

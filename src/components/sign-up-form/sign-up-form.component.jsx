@@ -22,8 +22,9 @@ const defaultFormFields = {
 
 //COMPONENT Start
 const SignUpForm = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
 
+
+  const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
   //ON-CHANGE
@@ -36,7 +37,7 @@ const SignUpForm = () => {
     });
   };
 
-  //Re-Aet FormFields
+  //Reaet FormFields
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };

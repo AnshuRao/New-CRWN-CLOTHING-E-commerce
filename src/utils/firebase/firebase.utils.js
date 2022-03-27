@@ -1,7 +1,7 @@
 import { async } from '@firebase/util';
 import { initializeApp} from 'firebase/app';
 
-import {getAuth , signInWithRedirect, signInWithPopup, GoogleAuthProvider , createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'firebase/auth';
+import {getAuth , signInWithRedirect, signInWithPopup, GoogleAuthProvider , createUserWithEmailAndPassword ,signInWithEmailAndPassword, signOut, onAuthStateChanged} from 'firebase/auth';
 
 import {getFirestore, doc, getDoc , setDoc} from 'firebase/firestore';
 
@@ -59,6 +59,15 @@ if(!email || !password){
 }
 return await signInWithEmailAndPassword(auth, email, password )
 }
+
+//Sign-Out
+export const  signOutUserHandler = async ()=>{
+    return await signOut(auth)
+}
+
+//CREATING AN OBSERVER LISTENER
+export const onAuthStateChangeListener =(callback)=> onAuthStateChanged(auth, callback) 
+
 
 //FireStore
 export const db = getFirestore();
