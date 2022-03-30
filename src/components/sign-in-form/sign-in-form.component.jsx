@@ -15,7 +15,7 @@ import { getRedirectResult } from "firebase/auth";
 
 //Component Imported
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button ,{BUTTON_TYPE_CLASSES} from "../button/button.component";
 
 import "./sign-in-form.style.scss";
 
@@ -47,7 +47,7 @@ const SignIn = () => {
   //
   useEffect(async () => {
     const response = await getRedirectResult(auth);
-    console.log(response);
+   // console.log(response);
   }, []);
 
 
@@ -70,7 +70,7 @@ const SignIn = () => {
         password
       );
       setFormFields({ ...defaultFormFields });
-      console.log(response);
+      
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
@@ -108,7 +108,7 @@ const SignIn = () => {
         />
         <div className="buttons-container">
           <Button type="submit">SIGN IN</Button>
-          <Button type="button" buttonType="google" onClick={logGoogleUser}>
+          <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={logGoogleUser}>
             GOOGLE SIGN IN
           </Button>
         </div>

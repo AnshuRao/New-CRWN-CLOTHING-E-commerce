@@ -96,7 +96,7 @@ export const createUserDocumentFromAuth = async (
   const userDocRef = doc(db, "users", userAuth.uid);
 
   const UserSnapshot = await getDoc(userDocRef);
-  console.log(UserSnapshot.exists());
+  
   if (!UserSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createDate = new Date();
@@ -136,7 +136,7 @@ export const addCollectionAndDocument = async (collectionKey , objectsToAdd) =>{
 export const getCategoriesAndDocuments = async () =>  {
     const collectinRef = collection(db , 'categories');
     const q = query(collectinRef);
-    console.log(q);
+   
 
     const querySnapshot = await getDocs(q)
     const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot)=>{
