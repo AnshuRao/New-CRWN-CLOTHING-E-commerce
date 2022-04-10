@@ -1,22 +1,25 @@
 //SCSS
 import "./checkout-item.style.scss";
-//REACT
-import { useContext } from "react";
-//CONTEXt
-import { CartContext } from "../../contexts/cart.context";
-
+//Action
+import { addItemToCart ,removeItemFromCart ,clearItemFromCart } from "../../store/cart/cart.action";
+//Dispatch
+import { useDispatch } from "react-redux";
+//Selector
+import {useSelector} from 'react-redux';
+//cartSelector
+import {selectCartItems} from '../../store/cart/cart.selector';
 //Component Start
 const CheckoutItem = ({ cartItem }) => {
-  const { clearItemFromCart, addItemToCart, removeItemToCart } =
-    useContext(CartContext);
+ const cartItems = useSelector(selectCartItems);
+const dispatch = useDispatch();
 
   const { name, imageUrl, price, quantity } = cartItem;
 
   const clearItemHandler = () => {
-    return clearItemFromCart(cartItem);
+    return dispatch(clearItemFromCart(cartItems,cartItem));
   };
-  const addItemHandler = () => addItemToCart(cartItem);
-  const removeItemHandler = () => removeItemToCart(cartItem);
+  const addItemHandler = () => dispatch( addItemToCart(cartItems,cartItem));
+  const removeItemHandler = () => dispatch(removeItemFromCart(cartItems,cartItem));
   return (
     <div className="checkout-item-container">
       <div className="image-container">
@@ -36,7 +39,7 @@ const CheckoutItem = ({ cartItem }) => {
       <span className="price">{price}</span>
 
       <div className="remove-button" onClick={clearItemHandler}>
-        &#10005;
+      &#9003;
       </div>
     </div>
   );

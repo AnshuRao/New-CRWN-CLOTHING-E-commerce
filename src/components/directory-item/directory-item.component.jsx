@@ -8,7 +8,7 @@ const DirectoryItem = ({ category}) => {
   const { imageUrl, title ,route } = category;
   const navigate = useNavigate();
   const onNavigateHandler = ()=>{
-    return navigate(route)
+    return navigate(`shop/${title}`)
   }
   return (
     <DirectoryItemsContainer onClick={onNavigateHandler}>

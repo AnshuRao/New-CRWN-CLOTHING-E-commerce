@@ -1,43 +1,34 @@
 //REACT
-import { Fragment, useContext } from "react";
-
-//CONTEXT
-import { CategoriesContext } from "../../contexts/categories.context";
-
+import { Fragment } from "react";
+//Redux -selector
+import { useSelector } from "react-redux";
+//categories selector
+import {
+  selectCategoriesMap,
+  selectIsLoading,
+} from "../../store/categories/category.selector";
 //Component Imported
- //import ProductCard from "../../components/product-card/product-card.component";
 import CategoryPreview from "../../components/category-preview/category-preview.component";
+import Spinner from "../../components/spinner/spinner.component";
 
 //Component Start
 const CategoriesPreview = () => {
-  const { categoriesMap } = useContext(CategoriesContext);
-
+  const categoriesMap = useSelector(selectCategoriesMap);
+  const isLoading = useSelector(selectIsLoading);
+console.log(isLoading)
   return (
-   <Fragment>
-      {Object.keys(categoriesMap).map((title) => {
-        const products = categoriesMap[title];
-        return (
-          <CategoryPreview key={title} title={title} products={products} />
-        );
-      })}
+    <Fragment>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        Object.keys(categoriesMap).map((title) => {
+          const products = categoriesMap[title];
+          return (
+            <CategoryPreview key={title} title={title} products={products} />
+          );
+        })
+      )}
     </Fragment>
-
-    // <Fragment>
-    //   {Object.keys(categoriesMap).map((title) => {
-    //     return (
-    //       <Fragment>
-    //         <h2>{title.toUpperCase()}</h2>
-    //         <div className="products-container">
-    //           {categoriesMap[title].map((product, index) => {
-    //             if (index < 4) {
-    //               return <ProductCard key={product.id} product={product} />;
-    //             }
-    //           })}
-    //         </div>
-    //       </Fragment>
-    //     );
-    //   })}
-    // </Fragment>
   );
 };
 export default CategoriesPreview;

@@ -1,35 +1,49 @@
 //SCSS
 import "./category-full.style.scss";
+
 //React
-import { useContext, useState, useEffect, Fragment } from "react";
+import { Fragment } from "react";
+
 //Router-dom
-import { useParams } from "react-router-dom";
-//Context
-import { CategoriesContext } from "../../contexts/categories.context";
+import { useParams, useNavigate } from "react-router-dom";
+
 //Components Imported
 import ProductCard from "../../components/product-card/product-card.component";
+import Spinner from "../../components/spinner/spinner.component";
+import Button from "../../components/button/button.component";
+//Redux -selector
+import { useSelector } from "react-redux";
+
+//categories selector
+import { selectIsLoading } from "../../store/categories/category.selector";
 
 //Component Start
-const CategoryFull = () => {
+const CategoryFull = ({ productOnSelect }) => {
   const { category } = useParams();
-  const { categoriesMap } = useContext(CategoriesContext);
-  //const products = categoriesMap[category];
+  const isLoading = useSelector(selectIsLoading);
+  const navigate = useNavigate();
+  //const products = categoriesMap[category]; Because they are already a featching data
 
-  const [products, setProducts] = useState(categoriesMap[category]);
+  const products = productOnSelect;
 
-  useEffect(() => {
-    setProducts(categoriesMap[category]);
-  }, [category, categoriesMap]);
+  return (
+    <Fragment>
+      <h2 className="category-full-title">{category.toUpperCase()}</h2>
 
-  return (<Fragment>
-  <h2 className="category-full-title">{category.toUpperCase()}</h2>
-
-  
-    <div className="category-full-conatiner">
-      {products &&  products.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
-      })}
-    </div>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="category-full-conatiner">
+          {products &&
+            products.map((product) => {
+              return (
+                <div >
+                  <ProductCard key={product.id} product={product} />{" "}
+                </div>
+              );
+            })}
+        </div>
+      )}
     </Fragment>
   );
 };

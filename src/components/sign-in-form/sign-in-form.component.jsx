@@ -5,14 +5,14 @@ import { useEffect, useState, useContext } from "react";
 
 //FireBase
 import {
-  auth,
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
-  signInWithGoogleRedirect,
   signInExistingUserUsingEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
-import { getRedirectResult } from "firebase/auth";
 
+//Redux - DISPATCH
+import { useDispatch } from "react-redux";
+//users action
+import { googleSignInStart , emailSignInStart } from "../../store/user/user.action";
 //Component Imported
 import FormInput from "../form-input/form-input.component";
 import Button ,{BUTTON_TYPE_CLASSES} from "../button/button.component";
@@ -27,29 +27,12 @@ const defaultFormFields = {
 //Component Start
 const SignIn = () => {
 
-  
- // const { setCurrentUser } = useContext(UserContext);
+  const dispatch = useDispatch();
 
-
-  const logGoogleUser = async () => {
-    const response = await signInWithGooglePopup();
-   // setCurrentUser(response.user);
-   // createUserDocumentFromAuth(response.user);
+  const logGoogleUserHander = async () => {
+   dispatch(googleSignInStart())
+ 
   };
-
-
-  const logGoogleRedirect = async () => {
-    const response = await signInWithGoogleRedirect();
-    console.log(response);
-    //createUserDocumentFromAuth(response.user)
-  };
-
-  //
-  useEffect(async () => {
-    const response = await getRedirectResult(auth);
-   // console.log(response);
-  }, []);
-
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -65,10 +48,7 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInExistingUserUsingEmailAndPassword(
-        email,
-        password
-      );
+      dispatch( emailSignInStart(email, password));
       setFormFields({ ...defaultFormFields });
       
     } catch (error) {
@@ -108,7 +88,7 @@ const SignIn = () => {
         />
         <div className="buttons-container">
           <Button type="submit">SIGN IN</Button>
-          <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={logGoogleUser}>
+          <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={logGoogleUserHander}>
             GOOGLE SIGN IN
           </Button>
         </div>

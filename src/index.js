@@ -3,27 +3,26 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
+//React-Redux
 import { BrowserRouter } from "react-router-dom";
-//CONTEXT
-import { UserProvider } from "./contexts/user.contexts";
-import { CategoriesProvider } from "./contexts/categories.context";
-/*you need to think which context can access other context ....as now we need products in users context so according we have placed  */
-import { CartProvider } from "./contexts/cart.context";
+//React-REDUX Provider
+import { Provider } from "react-redux";
+//REDUX_Store
+import { store , persistor} from "./store/store";
+//Redux-persit
+import {PersistGate} from 'redux-persist/integration/react';
+//loading
+import Spinner from './components/spinner/spinner.component';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-
-      <CartProvider>
-        <UserProvider>
-          <CategoriesProvider>
-            <App />
-          </CategoriesProvider>
-        </UserProvider>
-      </CartProvider>
-      
-    </BrowserRouter>
+    <Provider store={store}>
+    <PersistGate loading={<Spinner/>} persistor={persistor}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
 
   document.getElementById("root")

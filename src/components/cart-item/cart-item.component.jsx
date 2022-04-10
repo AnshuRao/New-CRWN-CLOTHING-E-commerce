@@ -1,27 +1,23 @@
-//SCSS
-import "./cart-item.style.scss";
-//REACT
-import { useContext } from "react";
-//CONTEXt 
-import { CartContext } from "../../contexts/cart.context";
+//Styled Component
+import {CartItemContainer , ItemDetails , Name , Price} from "./cart-item.style";
 
 
 //Component Start
 const CartItem = ({ cartItem }) => {
   const {name, price, imageUrl, quantity} = cartItem;
-  const {removeItemToCart} = useContext(CartContext);
+  
 
   return (
-    <div className="cart-item-container">
+    <CartItemContainer>
       <img src={imageUrl} alt={name} />
 
-      <div className="item-details">
-        <span className="name">{name}</span>
-        <span className="price">{price}</span>
+      <ItemDetails>
+        <Name>{name}</Name>
+        <Price>{price}</Price>
         {quantity} x &#8377;{`${price}`}
-      </div>
-      <div className="close" onClick={()=>removeItemToCart(cartItem)}>&#10539;</div>
-    </div>
+      </ItemDetails>
+      
+    </CartItemContainer>
   );
 };
 
