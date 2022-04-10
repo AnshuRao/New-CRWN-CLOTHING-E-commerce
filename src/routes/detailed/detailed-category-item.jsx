@@ -3,11 +3,19 @@ import { useParams } from "react-router-dom";
 //Imorted Component
 import Spinner from "../../components/spinner/spinner.component";
 
+import InformationProduct from "../../components/informationProduct/informationProduct.component";
 //Component start
-const DetailOfItem = ({ productOnSelect }) => {
+const DetailOfItem = ({ itemsOnSelect }) => {
   const { item } = useParams();
+  const onlyWhen = () => {
+    const product = itemsOnSelect.find(
+      (product) => product.id == item
+    );
 
-  return <div>{ !productOnSelect ? <Spinner /> : <h1>{productOnSelect.find((per) => per.id == item).name}</h1>}</div>;
+    return <InformationProduct product={product}/>
+  };
+
+  return <div>{!itemsOnSelect ? <Spinner /> : onlyWhen()}</div>;
 };
 
 export default DetailOfItem;

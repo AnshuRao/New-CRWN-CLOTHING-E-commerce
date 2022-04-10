@@ -5,18 +5,18 @@ import { Routes , Route ,useParams } from "react-router-dom";
 //Selector
 import { useSelector } from "react-redux";
 //Category-selector
-import { selectCategoriesMap, selectIsLoading } from "../../store/categories/category.selector";
+import { selectCategoriesMap } from "../../store/categories/category.selector";
 
 //Componet start
 const CategoryParent = ()=>{
     const {category} = useParams();
     const categoriesMap = useSelector(selectCategoriesMap);
-    const productOnSelect = categoriesMap[category];
+    const itemsOnSelect = categoriesMap[category];
  
     return(
         <Routes>
-            <Route index element={<CategoryFull productOnSelect={productOnSelect}/>} />
-            <Route path=":item" element={<DetailOfItem productOnSelect={productOnSelect}/>}/>
+            <Route index element={<CategoryFull itemsOnSelect={itemsOnSelect}/>} />
+            <Route path=":item" element={<DetailOfItem itemsOnSelect={itemsOnSelect}/>}/>
         </Routes>
     )
 

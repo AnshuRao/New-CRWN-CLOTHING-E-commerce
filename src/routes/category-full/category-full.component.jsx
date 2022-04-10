@@ -10,7 +10,7 @@ import { useParams, useNavigate } from "react-router-dom";
 //Components Imported
 import ProductCard from "../../components/product-card/product-card.component";
 import Spinner from "../../components/spinner/spinner.component";
-import Button from "../../components/button/button.component";
+
 //Redux -selector
 import { useSelector } from "react-redux";
 
@@ -18,13 +18,11 @@ import { useSelector } from "react-redux";
 import { selectIsLoading } from "../../store/categories/category.selector";
 
 //Component Start
-const CategoryFull = ({ productOnSelect }) => {
+const CategoryFull = ({ itemsOnSelect }) => {
   const { category } = useParams();
   const isLoading = useSelector(selectIsLoading);
-  const navigate = useNavigate();
   //const products = categoriesMap[category]; Because they are already a featching data
 
-  const products = productOnSelect;
 
   return (
     <Fragment>
@@ -34,8 +32,8 @@ const CategoryFull = ({ productOnSelect }) => {
         <Spinner />
       ) : (
         <div className="category-full-conatiner">
-          {products &&
-            products.map((product) => {
+          {itemsOnSelect &&
+            itemsOnSelect.map((product) => {
               return (
                 <div >
                   <ProductCard key={product.id} product={product} />{" "}
