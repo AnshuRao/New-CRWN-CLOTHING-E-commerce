@@ -8,19 +8,22 @@ import { BrowserRouter } from "react-router-dom";
 //React-REDUX Provider
 import { Provider } from "react-redux";
 //REDUX_Store
-import { store , persistor} from "./store/store";
+import { store, persistor } from "./store/store";
 //Redux-persit
-import {PersistGate} from 'redux-persist/integration/react';
-//loading
-import Spinner from './components/spinner/spinner.component';
+import { PersistGate } from "redux-persist/integration/react";
+//Stripe
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "./utils/stripe/stripe.utils";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <PersistGate loading={<Spinner/>} persistor={persistor}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
+        </BrowserRouter>
       </PersistGate>
     </Provider>
   </React.StrictMode>,

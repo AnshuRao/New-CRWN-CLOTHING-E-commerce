@@ -8,7 +8,7 @@ google sign in
 */
 
 //STYLED-COMPONENTS
-import { BaseButton, GoogleSignInButton, InvertedButton } from "./button.style";
+import { BaseButton, GoogleSignInButton, InvertedButton, ButtonSpinner } from "./button.style";
 
 const getButton = (buttontype = BUTTON_TYPE_CLASSES.base) => {
   return {
@@ -24,10 +24,12 @@ export const BUTTON_TYPE_CLASSES = {
   base: "base",
 };
 
-const Button = ({ children, buttonType, ...otherProps }) => {
+const Button = ({ children, buttonType,isLoading, ...otherProps }) => {
   const CustomButton = getButton(buttonType);
 
-  return <CustomButton {...otherProps}>{children}</CustomButton>;
+  return <CustomButton disabled={isLoading} {...otherProps}>{
+    isLoading ? <ButtonSpinner/> :
+    children}</CustomButton>;
 };
 
 export default Button;

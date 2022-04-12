@@ -5,7 +5,7 @@ import "./category-full.style.scss";
 import { Fragment } from "react";
 
 //Router-dom
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 //Components Imported
 import ProductCard from "../../components/product-card/product-card.component";
@@ -35,9 +35,9 @@ const CategoryFull = ({ itemsOnSelect }) => {
           {itemsOnSelect &&
             itemsOnSelect.map((product) => {
               return (
-                <div >
-                  <ProductCard key={product.id} product={product} />{" "}
-                </div>
+             
+                  <ProductCard key={product.id} product={product} />
+              
               );
             })}
         </div>
