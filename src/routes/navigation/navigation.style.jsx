@@ -14,12 +14,16 @@ export const LogoConatiner = styled(Link)`
   height: 100%;
   width: 70px;
   padding: 25px;
+  @media screen and (max-width: 700px){
+    padding: 10px;
+  }
+
 `;
 export const NavLinksContainer = styled.div`
-  width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
+  flex-basis:auto;
   justify-content: flex-end;
 `;
 export const NavLink = styled(Link)`

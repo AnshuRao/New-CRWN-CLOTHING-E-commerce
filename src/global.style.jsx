@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle= createGlobalStyle`
 body {
   margin: 0;
   padding: 20px 40px;
@@ -5,9 +8,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @media screen and (max-width: 750px){
-    padding: 15px 20px;
+      padding: 15px 20px;
 
-}
+  }
+
+
 }
 
 code {
@@ -23,3 +28,4 @@ a{
   box-sizing: border-box;
   
 }
+`

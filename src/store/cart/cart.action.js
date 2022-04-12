@@ -55,9 +55,10 @@ export const clearItemFromCart = (cartItems, cartItemToClear) => {
   return { type: CART_ACTION_TYPE.SET_CART_ITEMS, payload: newCartItems };
 };
 
-export const setIsCartOpen = () => {
+export const setIsCartOpen = (boll) => {
   return {
     type: CART_ACTION_TYPE.TOOGLE_DROPDOWN,
+    payload: boll
   };
 };
 

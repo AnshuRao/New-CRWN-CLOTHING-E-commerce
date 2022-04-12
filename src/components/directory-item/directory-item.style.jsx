@@ -65,4 +65,11 @@ export const DirectoryItemsContainer = styled.div`
     margin-left: 7.5px;
   }
   }
+
+  @media screen and (max-width: 750px){
+    min-width: 45%;
+  }
+  @media screen and (max-width: 370px){
+    min-width: 85%;
+  }
 `;

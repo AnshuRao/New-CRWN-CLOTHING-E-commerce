@@ -13,7 +13,8 @@ import {setIsCartOpen} from '../../store/cart/cart.action';
 //Componenet Start
 const CartIcon = () => {
   const dispatch = useDispatch();
-const cartCount = useSelector(selectCartCount)
+const cartCount = useSelector(selectCartCount);
+
   const toggleDropdownHandler = () => {
     dispatch(setIsCartOpen());
   };

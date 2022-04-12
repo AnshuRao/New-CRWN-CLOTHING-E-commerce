@@ -9,9 +9,7 @@ export const ProductCardContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
-  
 
- 
   ${BaseButton},
   ${InvertedButton} {
     width: 80%;
@@ -30,21 +28,35 @@ export const ProductCardContainer = styled.div`
       display: flex;
     }
   }
+  @media screen and (max-width: 800px) {
+
+    
+    ${BaseButton},
+    ${InvertedButton} {
+      display: flex;
+    }
+    &:hover {
+    img {
+      opacity: unset;
+    }
+
+    button {
+      
+      display: flex;
+    }
+  }
+  }
 `;
 export const ProductsImageAndFootContainer = styled.div`
-width: 100%;
-height: 100%;
-img {
+  width: 100%;
+  height: 100%;
+  img {
     width: 100%;
     height: 95%;
     object-fit: cover;
     margin-bottom: 5px;
   }
-`
-
-
-
-
+`;
 
 export const Footer = styled.div`
   width: 100%;

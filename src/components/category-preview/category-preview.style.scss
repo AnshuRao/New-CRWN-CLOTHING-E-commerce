@@ -7,12 +7,25 @@
       font-size: 28px;
       margin-bottom: 25px;
       cursor: pointer;
+      .fa-arrow-circle-right{
+        font-size: 35px;
+        color: rgb(28, 205, 28);
+      }
     }
   
     .preview {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       column-gap: 20px;
+
+
+      @media screen and (max-width: 800px){
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 10px;
+      }
+      @media screen and (max-width: 380px){
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
   }
   

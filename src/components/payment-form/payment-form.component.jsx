@@ -26,20 +26,22 @@ const PaymentForm = () => {
     if (!stripe || !elements) {
       return;
     }
-    setIsProcessingPayment(true);
+ setIsProcessingPayment(true);
     const response = await fetch('/.netlify/functions/create-payment-intent', {
-      method: 'post',
+      method: "post",
       headers: {
-        'Content_Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ amount: amount * 100 }),
-    }).then((res) => res.json());
-    const {
-      paymentIntent: { client_secret },
-    } = response;
+    }).then((res) => {
+      return res.json();
+    });
 
-    console.log(client_secret);
-    const paymentResult = await stripe.confirmCardPayment(client_secret, {
+
+    const clientSecret = response.paymentIntent.client_secret;
+
+    console.log(clientSecret);
+    const paymentResult = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
@@ -53,7 +55,7 @@ const PaymentForm = () => {
       alert(paymentResult.error);
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
-        alert(`Dear,  Payment was Successful`);
+        alert(`Dear, ${currentUser ? currentUser.displayName : 'Guest' } Payment was Successful`);
       }
     }
   };
@@ -62,13 +64,13 @@ const PaymentForm = () => {
     <PaymentFormContainer>
       <FormContainer onSubmit={paymentHandler}>
         <h2>Credit Card Payment:</h2>
-        <CardElement />
+        <CardElement ></CardElement>
 
         <PaymentButton
           isLoading={isProcessingPayment}
           buttonType={BUTTON_TYPE_CLASSES.inverted}
         >
-          Pay now
+          Pay Now
         </PaymentButton>
       </FormContainer>
     </PaymentFormContainer>
