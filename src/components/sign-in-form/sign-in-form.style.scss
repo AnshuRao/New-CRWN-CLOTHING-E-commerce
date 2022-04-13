@@ -10,6 +10,14 @@
     .buttons-container{
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        text-align: center;
+        @media screen and (max-width:380px ) {
+            button{
+                margin-top: 15px;
+            }
+        }
 
     }
+  
 }

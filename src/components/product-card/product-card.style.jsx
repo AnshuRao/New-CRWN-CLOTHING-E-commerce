@@ -50,9 +50,10 @@ export const ProductCardContainer = styled.div`
 export const ProductsImageAndFootContainer = styled.div`
   width: 100%;
   height: 100%;
+ 
   img {
     width: 100%;
-    height: 95%;
+    height: 90%;
     object-fit: cover;
     margin-bottom: 5px;
   }
@@ -60,7 +61,7 @@ export const ProductsImageAndFootContainer = styled.div`
 
 export const Footer = styled.div`
   width: 100%;
-  height: 5%;
+  height: 8%;
   display: flex;
   justify-content: space-between;
   font-size: 18px;
@@ -68,7 +69,7 @@ export const Footer = styled.div`
 export const Name = styled.span`
   padding-left: 10px;
   width: 90%;
-  margin-bottom: 15px;
+  
 `;
 export const Price = styled.span`
   padding-right: 25px;
