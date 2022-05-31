@@ -17,7 +17,7 @@ import { selectCartItems } from "../../store/cart/cart.selector";
 //Dispatch
 import { useDispatch } from "react-redux";
 //Actions
-import { setIsCartOpen } from "../../store/cart/cart.action";
+import { setIsCartOpen } from "../../store/cart/cart.slice1";
 //Component Start
 const CartDropdown = () => {
   const dispatch = useDispatch();

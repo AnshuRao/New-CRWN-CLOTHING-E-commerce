@@ -1,26 +1,25 @@
-import { takeLatest, put, call, all } from "redux-saga/effects";
-
+import { takeLatest, all, call, put } from "redux-saga/effects";
 import {
+  checkUserSession,
+  googleSignInStart,
+  emailSignInStart,
   setCurrentUserOnSuccess,
   signInFailed,
+  signUpStart,
   signUpSuccess,
   signUpFailed,
-} from "./user.action";
-
-import { USER_ACTION_TYPES } from "./user.types";
-
+  signOutStart,
+} from "./user.slice";
 import {
   getCurrentUser,
   createUserDocumentFromAuth,
   signInExistingUserUsingEmailAndPassword,
   createAuthUserWithEmailAndPassword,
   signOutUser,
+  signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 
-import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
-
-//CREATING DB in firebase and Setting CurrentUser
-
+//main action 1
 export function* getSnapShotFromUserAuth(userAuth, additionalDetailes) {
   try {
     const UserSnapshot = yield call(
@@ -40,13 +39,14 @@ export function* getSnapShotFromUserAuth(userAuth, additionalDetailes) {
 
 //Watcher for Refresh Checking user signIn
 export function* onCheckUserSession() {
-  yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
+  yield takeLatest(checkUserSession.type, isUserAuthenticated);
 }
+
 //Next Performer
 export function* isUserAuthenticated() {
   try {
     const userAuth = yield call(getCurrentUser);
-    
+
     if (!userAuth) {
       return;
     }
@@ -59,10 +59,7 @@ export function* isUserAuthenticated() {
 
 //watcher googlesign in started
 export function* onUserGoogleSignInStart() {
-  yield takeLatest(
-    USER_ACTION_TYPES.GOOGLE_SIGN_IN_START,
-    signInWithGooglePopUp
-  );
+  yield takeLatest(googleSignInStart.type, signInWithGooglePopUp);
 }
 //Next Performer
 export function* signInWithGooglePopUp() {
@@ -76,10 +73,10 @@ export function* signInWithGooglePopUp() {
 
 // watcher sign in with Email and Password
 export function* onEmailSignInStart() {
-  yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, SignInWithEmail);
+  yield takeLatest(emailSignInStart.type, SignInWithEmail);
 }
 //Next performer
-export function* SignInWithEmail({ payload: { email, password } }) {
+export function* SignInWithEmail({payload:{ email, password }}) {
   try {
     const { user } = yield call(
       signInExistingUserUsingEmailAndPassword,
@@ -91,22 +88,25 @@ export function* SignInWithEmail({ payload: { email, password } }) {
     yield put(signInFailed(error));
   }
 }
+
 //watcher for SignUp started
 export function* onSignUpStart() {
-  yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, SignUp);
+  yield takeLatest(signUpStart.type, SignUp);
 }
 //next performer
-export function* SignUp({ payload: { email, password, displayName } }) {
+export function* SignUp({payload: { email, password, displayName }} ) {
   try {
+    console.log(email, password)
     const { user } = yield call(
       createAuthUserWithEmailAndPassword,
       email,
       password
     );
+    console.log(user)
     //Action
-    yield put(signUpSuccess(user, { displayName }));
+    yield put(signUpSuccess({user ,additionalDetailes:{displayName}}));
   } catch (error) {
-    if (error.code == "auth/email-already-in-use") {
+    if (error.code === "auth/email-already-in-use") {
       alert("Already Used Email ");
       yield put(signUpFailed("Already Used Email "));
     } else {
@@ -117,16 +117,16 @@ export function* SignUp({ payload: { email, password, displayName } }) {
 
 //Watcher for Sign Up success
 export function* onSignUpSuccess() {
-  yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
+  yield takeLatest(signUpSuccess.type, signInAfterSignUp);
 }
 //next Performer
-export function* signInAfterSignUp({ payload: { user, additionalDetailes } }) {
+export function* signInAfterSignUp({payload:{ user, additionalDetailes }} ) {
   yield call(getSnapShotFromUserAuth, user, additionalDetailes);
 }
 
 //Watcher for Sign-Out Start
 export function* onSignOutStart() {
-  yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOutSuccess);
+  yield takeLatest(signOutStart.type, signOutSuccess);
 }
 
 //next Performer
@@ -136,6 +136,7 @@ export function* signOutSuccess() {
     yield put(setCurrentUserOnSuccess(user));
   } catch (error) {}
 }
+
 //Accumulater
 export function* userSagas() {
   yield all([

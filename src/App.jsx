@@ -11,7 +11,7 @@ import Checkout from "./routes/checkout/checkout.component";
 //ROUTER
 import { Routes, Route } from "react-router-dom";
 //ACTION
-import { checkUserSession } from "./store/user/user.action.js";
+import { checkUserSession } from "./store/user/user.slice";
 //REDUX
 import { useDispatch } from "react-redux";
 //selector
@@ -21,15 +21,14 @@ import { selectCurrentUser } from "./store/user/user.selector";
 //HOC
 import withRedirect from "./routes/HOC/redirect";
 
-
 //Component Start
 const App = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-console.log(currentUser);
   const AuthenticationTOHome = withRedirect(Authentication);
 
   useEffect(() => {
+   
     dispatch(checkUserSession());
   }, []);
 
@@ -37,7 +36,10 @@ console.log(currentUser);
     <Routes>
       <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />
-        <Route path="authentication" element={<AuthenticationTOHome currentUser={currentUser} />} />
+        <Route
+          path="authentication"
+          element={<AuthenticationTOHome currentUser={currentUser} />}
+        />
         <Route path="shop/*" element={<Shop />} />
         <Route path="checkout" element={<Checkout />} />
       </Route>

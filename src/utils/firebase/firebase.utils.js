@@ -39,7 +39,7 @@ const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
   prompt: "select_account",
-  login_hint: "user@example.com",
+ 
 });
 
 //for  Auth
@@ -97,6 +97,7 @@ export const getCurrentUser = () => {
     );
   });
 };
+
 //FireStore
 export const db = getFirestore();
 
@@ -106,13 +107,11 @@ export const createUserDocumentFromAuth = async (
   additionalInformation
 ) => {
   const userDocRef = doc(db, "users", userAuth.uid);
-
   const UserSnapshot = await getDoc(userDocRef);
-
+ 
   if (!UserSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createDate = new Date();
-
     try {
       await setDoc(userDocRef, {
         displayName,
@@ -120,6 +119,7 @@ export const createUserDocumentFromAuth = async (
         createDate,
         ...additionalInformation,
       });
+     
     } catch (error) {
       console.log("error creating the User", error.message);
     }

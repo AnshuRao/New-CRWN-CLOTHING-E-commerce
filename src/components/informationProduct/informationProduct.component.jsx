@@ -1,5 +1,5 @@
 //Cart action
-import { addItemToCart } from "../../store/cart/cart.action";
+import { addItemToCart } from "../../store/cart/cart.slice1";
 // Cart Selector
 import { selectCartItems } from "../../store/cart/cart.selector";
 //Dispatch
@@ -23,7 +23,7 @@ const InformationProduct = ({ product }) => {
   const { imageUrl, name, price } = product;
 
   const AddToCartHandler = () => {
-    return dispatch(addItemToCart(cartItems, product));
+    return dispatch(addItemToCart({cartItems, product}));
   };
 
   return (

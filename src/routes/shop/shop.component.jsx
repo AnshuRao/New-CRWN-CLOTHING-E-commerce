@@ -1,5 +1,5 @@
 //React
-import { useEffect } from "react";
+//import { useEffect } from "react";
 
 // Router-Dom
 import { Route, Routes } from "react-router-dom";
@@ -9,12 +9,12 @@ import "./shop.style.scss";
 
 //Component Imported
 import CategoriesPreview from "../categories-preview/categories-preview.component";
-import CategoryFull from "../category-full/category-full.component";
+
 import CategoryParent from "../categoryParent/category-parent";
 //Dispatch for action
 import { useDispatch } from "react-redux";
 //Categories Action
-import { fetchCategoriesToStart } from "../../store/categories/category.action";
+import { fetchCategoriesToStart } from "../../store/categories/categories.slice";
 
 
 
@@ -23,11 +23,8 @@ const Shop = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
- 
-      dispatch(fetchCategoriesToStart());
-    
-  });
+  
+  dispatch(fetchCategoriesToStart());
 
   return (
     <Routes>

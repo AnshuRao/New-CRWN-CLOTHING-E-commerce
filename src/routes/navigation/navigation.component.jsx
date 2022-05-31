@@ -23,7 +23,7 @@ import { selectIsCartOpen } from "../../store/cart/cart.selector";
 //Dispatch
 import { useDispatch } from "react-redux";
 //User action
-import { signOutStart } from "../../store/user/user.action";
+import { signOutStart } from "../../store/user/user.slice"
 
 //COMPONENT START
 const Navigation = () => {

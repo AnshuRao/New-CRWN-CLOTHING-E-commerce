@@ -1,18 +1,18 @@
 //REACT
-import { useEffect, useState, useContext } from "react";
+import {  useState} from "react";
 
 //import { UserContext } from "../../contexts/user.contexts";
 
 //FireBase
-import {
+/*import {
   signInWithGooglePopup,
   signInExistingUserUsingEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
-
+*/
 //Redux - DISPATCH
 import { useDispatch } from "react-redux";
 //users action
-import { googleSignInStart , emailSignInStart } from "../../store/user/user.action";
+import { googleSignInStart , emailSignInStart } from "../../store/user/user.slice";
 //Component Imported
 import FormInput from "../form-input/form-input.component";
 import Button ,{BUTTON_TYPE_CLASSES} from "../button/button.component";
@@ -44,11 +44,11 @@ const SignIn = () => {
       [name]: value,
     });
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      dispatch( emailSignInStart(email, password));
+      dispatch( emailSignInStart({email, password}));
       setFormFields({ ...defaultFormFields });
       
     } catch (error) {

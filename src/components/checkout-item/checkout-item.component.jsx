@@ -1,28 +1,35 @@
 //SCSS
 import "./checkout-item.style.scss";
 //Action
-import { addItemToCart ,removeItemFromCart ,clearItemFromCart } from "../../store/cart/cart.action";
+import { addItemToCart ,removeItemFromCart ,clearItemFromCart } from "../../store/cart/cart.slice1";
 //Dispatch
 import { useDispatch } from "react-redux";
 //Selector
 import {useSelector} from 'react-redux';
 //cartSelector
 import {selectCartItems} from '../../store/cart/cart.selector';
+//Router
+import { useNavigate } from "react-router-dom";
+
 //Component Start
 const CheckoutItem = ({ cartItem }) => {
  const cartItems = useSelector(selectCartItems);
 const dispatch = useDispatch();
-
-  const { name, imageUrl, price, quantity } = cartItem;
-
+const navigate = useNavigate();
+  const { name, imageUrl, price, quantity ,title ,id} = cartItem;
+console.log(title);
   const clearItemHandler = () => {
-    return dispatch(clearItemFromCart(cartItems,cartItem));
+    return dispatch(clearItemFromCart({cartItems,cartItem}));
   };
-  const addItemHandler = () => dispatch( addItemToCart(cartItems,cartItem));
-  const removeItemHandler = () => dispatch(removeItemFromCart(cartItems,cartItem));
+  const addItemHandler = () => dispatch( addItemToCart({cartItems,product:cartItem}));
+  const removeItemHandler = () => dispatch(removeItemFromCart({cartItems,cartItem}));
+  const onClickNavigateHangler = ()=>{
+navigate(`/shop/${title.toLowerCase()}/${id}`)
+  }
+  
   return (
     <div className="checkout-item-container">
-      <div className="image-container">
+      <div className="image-container" onClick={onClickNavigateHangler}>
         <img src={imageUrl} alt={`${name}`} />
       </div>
 

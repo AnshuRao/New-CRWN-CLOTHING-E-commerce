@@ -8,7 +8,7 @@ import {categoriesReducer} from './categories/category.reducer';
 import { cartReducer } from './cart/cart.reducer';
 
 //MAIN STATE
-export const rootReducer = combineReducers({
+ const rootReducer = combineReducers({
 user: userReducer,
 categories : categoriesReducer,
 cart: cartReducer

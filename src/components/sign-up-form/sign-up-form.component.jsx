@@ -3,7 +3,7 @@ import { useState } from "react";
 //Dispatch
 import { useDispatch } from "react-redux";
 //user action
-import { signUpStart } from "../../store/user/user.action";
+import { signUpStart } from "../../store/user/user.slice";
 //COMPONENT Imported
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
@@ -46,7 +46,7 @@ const dispatch = useDispatch();
       alert("Passwords do not match");
       return;
     }
-    dispatch(signUpStart(email, password, displayName))
+    dispatch(signUpStart({email, password, displayName}))
     resetFormFields();
   };
 

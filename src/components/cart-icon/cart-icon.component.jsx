@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 //CART-SELCTOR
 import {selectCartCount} from '../../store/cart/cart.selector';
 //ACTIONS 
-import {setIsCartOpen} from '../../store/cart/cart.action';
+import {setIsCartOpen} from '../../store/cart/cart.slice1';
 
 //Componenet Start
 const CartIcon = () => {

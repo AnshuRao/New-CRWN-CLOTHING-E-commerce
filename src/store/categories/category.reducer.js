@@ -5,10 +5,10 @@ const CATEGORIES_INITIAL_STATE = {
   categoriesArray: [],
   isLoading: false,
   error: null,
-  
   category: null,
   item: null,
 };
+
 //Reducer start
 export const categoriesReducer = (state = CATEGORIES_INITIAL_STATE, action) => {
   const { type, payload } = action;

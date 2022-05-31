@@ -23,8 +23,6 @@ import {USER_ACTION_TYPES} from './user.types';
             ...state,
             error: payload
           }
-
-
       default:
         return state;
     }
