@@ -15,7 +15,7 @@ import storage from "redux-persist/lib/storage";
 //import { getDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewareArray = [   process.env.NODE_ENV !== 'production' && logger , sagaMiddleware ]
+const middlewareArray = [   process.env.NODE_ENV !== 'production' && logger , sagaMiddleware ].filter(Boolean);
 
 const rootReducers = combineReducers({
     categories : CategoriesReducer,
