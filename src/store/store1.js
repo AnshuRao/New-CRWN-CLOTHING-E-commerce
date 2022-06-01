@@ -12,9 +12,10 @@ import { rootSaga1 } from "./root-saga1";
 import { combineReducers } from "redux";
 import { persistReducer , persistStore} from "redux-persist";
 import storage from "redux-persist/lib/storage";
+//import { getDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewareArray = [ logger , sagaMiddleware ]
+const middlewareArray = [   process.env.NODE_ENV !== 'production' && logger , sagaMiddleware ]
 
 const rootReducers = combineReducers({
     categories : CategoriesReducer,
@@ -31,7 +32,10 @@ const persistedReducer = persistReducer( persistConfig, rootReducers);
  const store1 = configureStore(
      {
          reducer : persistedReducer,
-         middleware: [...middlewareArray]
+         middleware:(getDefaultMiddleware)=>   getDefaultMiddleware({  
+            serializableCheck: false,
+          }).concat(middlewareArray)
+      
                
      }
  );
